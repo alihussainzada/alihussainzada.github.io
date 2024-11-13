@@ -1,1 +1,65 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Dorks</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #4a90e2;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1em;
+            margin-bottom: 30px;
+            color: #666;
+        }
+        .dork-button {
+            display: block;
+            width: 300px;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #4a90e2;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .dork-button:hover {
+            background-color: #357ABD;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Dorks</h1>
+    <p>Click a dork to search it on Google:</p>
+
+    <!-- Example dork links -->
+    <a class="dork-button" onclick="searchDork('intitle:index.of')">intitle:index.of</a>
+    <a class="dork-button" onclick="searchDork('inurl:admin')">inurl:admin</a>
+    <a class="dork-button" onclick="searchDork('filetype:pdf confidential')">filetype:pdf confidential</a>
+
+    <script>
+        function searchDork(dork) {
+            const googleUrl = 'https://www.google.com/search?q=' + encodeURIComponent(dork);
+            window.open(googleUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
+
