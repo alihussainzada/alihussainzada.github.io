@@ -3,76 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Dork Search</title>
+    <title>Dynamic Google Dork Search</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f4f4f9;
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            color: #333;
         }
         h1 {
-            color: #4a90e2;
-            font-size: 2em;
+            color: #0073e6;
             margin-bottom: 10px;
         }
         p {
-            font-size: 1em;
-            margin-bottom: 20px;
             color: #666;
+            margin-bottom: 20px;
         }
         .input-container {
             margin-bottom: 20px;
-            text-align: center;
         }
         input[type="text"] {
             padding: 10px;
-            width: 250px;
+            width: 280px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
             font-size: 1em;
-            border-radius: 5px;
-            border: 1px solid #ccc;
         }
         .dork-button {
-            display: block;
-            width: 300px;
-            padding: 15px;
-            margin: 10px 0;
-            background-color: #4a90e2;
-            color: white;
-            text-align: center;
-            font-weight: bold;
+            background-color: #0073e6;
+            color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
+            padding: 12px 20px;
+            margin: 5px 0;
+            font-size: 0.9em;
             cursor: pointer;
-            text-decoration: none;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
             transition: background-color 0.3s;
         }
         .dork-button:hover {
-            background-color: #357ABD;
+            background-color: #005bb5;
         }
     </style>
 </head>
 <body>
-    <h1>Google Dork Search</h1>
-    <p>Enter a target (e.g., site or keyword) and click a dork to search on Google:</p>
+    <h1>Dynamic Google Dork Search</h1>
+    <p>Enter the target domain (e.g., "example.com") and select a Google Dork query:</p>
 
     <div class="input-container">
-        <input type="text" id="targetInput" placeholder="Enter target here">
+        <input type="text" id="targetInput" placeholder="Enter target domain here (e.g., example.com)">
     </div>
 
-    <!-- Example dork links -->
-    <button class="dork-button" onclick="searchDork('intitle:index.of')">intitle:index.of</button>
-    <button class="dork-button" onclick="searchDork('inurl:admin')">inurl:admin</button>
-    <button class="dork-button" onclick="searchDork('filetype:pdf confidential')">filetype:pdf confidential</button>
+    <!-- Buttons for each Google Dork query -->
+    <button class="dork-button" onclick="searchDork('inurl:&')">inurl:&</button>
+    <button class="dork-button" onclick="searchDork('ext:(php|aspx|txt|jsp|html|xml|bak)')">ext:(php|aspx|txt|jsp|html|xml|bak)</button>
+    <button class="dork-button" onclick="searchDork('inurl:(unsubscribe|register|feedback|signup|join|contact|user|profile|api|developer|affiliate|mobile|upload|upgrade|password) inurl:&')">inurl:(unsubscribe...password) inurl:&</button>
+    <button class="dork-button" onclick="searchDork('ext:xml | ext:conf | ext:cnf | ext:reg | ext:inf | ext:rdp | ext:cfg | ext:ora | ext:ini')">ext:xml | ext:conf | ext:ini</button>
+    <button class="dork-button" onclick="searchDork('ext:doc | ext:docx | ext:odt | ext:pdf | ext:rtf | ext:sxw | ext:psw | ext:ppt | ext:pptx | ext:pps | ext:csv')">ext:doc | ext:pdf | ext:csv</button>
+    <button class="dork-button" onclick="searchDork('ext:sql | ext:dbf | ext:mdb | ext:log')">ext:sql | ext:dbf | ext:log</button>
+    <button class="dork-button" onclick="searchDork('ext:bkf | ext:bkp | ext:bak | ext:old | ext:backup')">ext:bkf | ext:bkp | ext:backup</button>
+    <button class="dork-button" onclick="searchDork('inurl:login | inurl:signin | intitle:Login | intitle:signin | inurl:auth')">inurl:login | intitle:Login</button>
+    <button class="dork-button" onclick="searchDork('ext:action | ext:struts | ext:do')">ext:action | ext:struts | ext:do</button>
+    <button class="dork-button" onclick="searchDork('filetype:wsdl | exy:svc | inurl:wsdl')">filetype:wsdl | inurl:wsdl</button>
+    <button class="dork-button" onclick="searchDork('filetype:config')">filetype:config</button>
+    <button class="dork-button" onclick="searchDork('*.')">*.{domain}</button>
+    <button class="dork-button" onclick="searchDork('*.*')">*.*{domain}</button>
 
     <script>
         function searchDork(dork) {
-            const target = document.getElementById('targetInput').value;
-            const fullDork = `${dork} ${target}`.trim();
+            const target = document.getElementById('targetInput').value.trim();
+            if (!target) {
+                alert("Please enter a target domain.");
+                return;
+            }
+            const fullDork = `site:${target} ${dork}`;
             const googleUrl = 'https://www.google.com/search?q=' + encodeURIComponent(fullDork);
             window.open(googleUrl, '_blank');
         }
